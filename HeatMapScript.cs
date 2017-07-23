@@ -15,6 +15,18 @@ public class HeatMapScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Object[] renderers = GameObject.FindObjectsOfType(typeof(MeshRenderer));
+
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            Material[] materials = ((MeshRenderer)renderers[i]).materials;
+
+            for (int j = 0; j < materials.Length; j++)
+            {
+                if (materials[i].shader.name == "HeatMapShader")
+                {
+                }
+            }
+        }
     }
 }
