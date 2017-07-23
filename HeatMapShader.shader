@@ -34,6 +34,16 @@
 
 				float4 wv = mul(unity_ObjectToWorld, v.vertex);
 
+				float4 direction = wv - _heatSourcePosition;
+				float distance = length(wv - _heatSourcePosition);
+
+				const float BOLTZMANN = 0.0000000567;
+
+				float dotProduct = dot(direction, -v.normal);
+				float energy = pow(_objectTemperature + _heatSourceTemperature, 4) * BOLTZMANN * dotProduct;
+
+				float reflected = energy * _energyRatio;
+
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				return o;
 			}
