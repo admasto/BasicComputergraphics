@@ -1,4 +1,5 @@
-﻿Shader "Custom/HeatMapShader"
+﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+Shader "Custom/HeatMapShader"
 {
 	Properties
 	{
@@ -12,6 +13,8 @@
 		Pass
 		{
 			CGPROGRAM
+			// Upgrade NOTE: excluded shader from OpenGL ES 2.0 because it uses non-square matrices
+			#pragma exclude_renderers gles
 			#pragma vertex vert
 			#pragma fragment frag
 
@@ -44,7 +47,44 @@
 
 				float reflected = energy * _energyRatio;
 
+				int num_col = 4;
+				float4x3 color = float4x3 (
+					0.0, 0.0, 1.0,
+					0.0, 1.0, 0.0,
+					1.0, 1.0, 0.0,
+					1.0, 0.0, 0.0
+				);
+				
+				int min_value;
+				int max_value;
+
+				float fraction = 0;
+
+				if (reflected <= 0)
+				{
+					min_value = max_value = 0;
+				}
+				else if (reflected >= 1)
+				{
+					min_value = max_value = num_col - 1;
+				}
+				else
+				{
+					reflected = reflected * (num_col - 1);
+					min_value  = floor(reflected);
+					max_value  = min_value + 1;
+
+					min_value = float(min_value);
+					fraction = reflected - min_value;
+				}
+
+				float red   = (color[max_value][0] - color[min_value][0]) * fraction + color[min_value][0];
+				float green = (color[max_value][1] - color[min_value][1]) * fraction + color[min_value][1];
+				float blue  = (color[max_value][2] - color[min_value][2]) * fraction + color[min_value][2];
+
 				o.vertex = UnityObjectToClipPos(v.vertex);
+				o.col.xyz = float3(red, green, blue);
+				o.col.w = 1.0;
 				return o;
 			}
 
