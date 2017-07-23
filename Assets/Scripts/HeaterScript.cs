@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeatMapScript : MonoBehaviour
+public class HeaterScript : MonoBehaviour
 {
     public float temperature;
 
