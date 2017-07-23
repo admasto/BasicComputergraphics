@@ -2,7 +2,10 @@
 {
 	Properties
 	{
-		
+		_heatSourcePosition("Heat Source Position", Vector) = (0, 0, 0)
+		_heatSourceTemperature("Heat Source Temperature", float) = 0.0
+		_objectTemperature("Object Temperature", float) = 0.0
+		_energyRatio("Energy Ratio", Range (0.0, 1.0)) = 1.0
 	}
 	SubShader
 	{
@@ -13,6 +16,11 @@
 			#pragma fragment frag
 
 			#include "UnityCG.cginc"
+			
+			uniform float _energyRatio;
+			uniform float _objectTemperature;
+			uniform float _heatSourceTemperature;	
+			uniform float4 _heatSourcePosition;
 
 			struct v2f
 			{
