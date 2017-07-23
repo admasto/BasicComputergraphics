@@ -23,12 +23,12 @@ public class HeaterScript : MonoBehaviour
 
             for (int j = 0; j < materials.Length; j++)
             {
-                if (materials[i].shader.name == "HeatMapShader")
+                if (materials[j].shader.name.Equals("Custom/HeatMapShader"))
                 {
-                    materials[i].SetFloat("_heatSourceTemperature", temperature);
+                    materials[j].SetFloat("_heatSourceTemperature", temperature);
 
                     Vector4 pos = new Vector4(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z, 1);
-                    materials[i].SetVector("_heatSourcePosition", pos);
+                    materials[j].SetVector("_heatSourcePosition", pos);
                 }
             }
         }
