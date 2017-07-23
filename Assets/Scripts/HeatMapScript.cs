@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HeatMapScript : MonoBehaviour
 {
+    public float surfaceArea;
     public float temperature;
 
     // Use this for initialization
@@ -25,7 +26,9 @@ public class HeatMapScript : MonoBehaviour
             {
                 if (materials[j].shader.name.Equals("Custom/HeatMapShader"))
                 {
+                    materials[j].SetFloat("_heatSourceSurfaceArea", surfaceArea);
                     materials[j].SetFloat("_heatSourceTemperature", temperature);
+
                     Vector4 pos = new Vector4(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z, 1);
                     materials[j].SetVector("_heatSourcePosition", pos);
                 }
