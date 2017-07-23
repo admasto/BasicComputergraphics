@@ -1,5 +1,5 @@
 # BasicComputergraphics
-Programmentwurf im Rahmen der Vorlesung "Computergrafik".
+Programmentwurf
 
 Studenten:
 
