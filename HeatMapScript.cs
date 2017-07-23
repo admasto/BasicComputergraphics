@@ -19,12 +19,16 @@ public class HeatMapScript : MonoBehaviour
 
         for (int i = 0; i < renderers.Length; i++)
         {
-            Material[] materials = ((MeshRenderer)renderers[i]).materials;
+            Material[] materials = ((MeshRenderer) renderers[i]).materials;
 
             for (int j = 0; j < materials.Length; j++)
             {
                 if (materials[i].shader.name == "HeatMapShader")
                 {
+                    materials[i].SetFloat("_heatSourceTemperature", temperature);
+
+                    Vector4 pos = new Vector4(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z, 1);
+                    materials[i].SetVector("_heatSourcePosition", pos);
                 }
             }
         }
